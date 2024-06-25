@@ -1,16 +1,17 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
-import {
-  getPosts,
-  createPost,
-  getPost,
-  updatePost,
-  deletePost,
-} from "../schema/posts";
-import { type UnkeyContext, unkey } from "@unkey/hono";
-import { PrismaClient } from "@prisma/client";
-import { PrismaLibSQL } from "@prisma/adapter-libsql";
 import { createClient } from "@libsql/client";
+import { PrismaLibSQL } from "@prisma/adapter-libsql";
+import { PrismaClient } from "@prisma/client";
+import { unkey, type UnkeyContext } from "@unkey/hono";
+
 import { cache } from "../lib/cache";
+import {
+  createPost,
+  deletePost,
+  getPost,
+  getPosts,
+  updatePost,
+} from "../schema/posts";
 
 type Bindings = {
   TURSO_DATABASE_URL: string;
@@ -107,7 +108,7 @@ posts.openapi(getPost, async (c) => {
   }
   return c.json(
     { id: post.val.id, title: post.val.title, post: post.val.post, code: 200 },
-    200,
+    200
   );
 });
 
@@ -141,12 +142,12 @@ posts.openapi(updatePost, async (c) => {
   if (results === null || !results.id) {
     return c.json(
       { error: "Post does not exist with this id", code: 400 },
-      400,
+      400
     );
   }
   return c.json(
     { id: results.id, post: results.post, title: results.title, code: 200 },
-    200,
+    200
   );
 });
 
@@ -170,7 +171,7 @@ posts.openapi(deletePost, async (c) => {
   if (results === null || !results.id) {
     return c.json(
       { error: "Post does not exist with this id", code: 400 },
-      400,
+      400
     );
   }
   return c.json({}, 201);

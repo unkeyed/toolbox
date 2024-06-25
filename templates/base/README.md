@@ -18,9 +18,9 @@ npm run dev
 
 or seperately by passing in the service you want to run:
 
-```bash
+````bash
 npm run dev:api
 
 ```bash
 npm run dev:api
-```
+````

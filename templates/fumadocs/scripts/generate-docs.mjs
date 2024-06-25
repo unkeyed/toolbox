@@ -1,6 +1,6 @@
+import * as path from "node:path";
 import * as OpenAPI from "fumadocs-openapi";
 import * as Typescript from "fumadocs-typescript";
-import * as path from "node:path";
 
 void OpenAPI.generateFiles({
   input: ["./*.json"],
@@ -16,6 +16,6 @@ void Typescript.generateFiles({
   output: (file) =>
     path.resolve(
       path.dirname(file),
-      `${path.basename(file).split(".")[0]}.mdx`,
+      `${path.basename(file).split(".")[0]}.mdx`
     ),
 });

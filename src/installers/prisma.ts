@@ -54,7 +54,7 @@ export const prismaInstaller: Installer = ({
   fs.writeFileSync(path.join(projectDir, "package.json"), modifiedData);
   fs.appendFileSync(
     path.join(projectDir, "package.json"),
-    `,\n "packageManager":  "${turboManager}" \n }`,
+    `,\n "packageManager":  "${turboManager}" \n }`
   );
 
   const extrasDir = path.join(PKG_ROOT, "templates/extras");
@@ -62,7 +62,7 @@ export const prismaInstaller: Installer = ({
   const schemaSrc = path.join(
     extrasDir,
     "prisma/schema",
-    `${"base"}${databaseProvider === "turso" ? "-turso" : ""}.prisma`,
+    `${"base"}${databaseProvider === "turso" ? "-turso" : ""}.prisma`
   );
   let schemaText = fs.readFileSync(schemaSrc, "utf-8");
   if (databaseProvider !== "sqlite") {
@@ -72,7 +72,7 @@ export const prismaInstaller: Installer = ({
         {
           turso: "sqlite",
         }[databaseProvider]
-      }"`,
+      }"`
     );
   }
   const schemaDest = path.join(projectDir, "apps/api/prisma/schema.prisma");

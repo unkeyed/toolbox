@@ -16,7 +16,7 @@ export const addPackageDependency = (opts: {
   const { dependencies, devMode, projectDir } = opts;
 
   const pkgJson = fs.readJSONSync(
-    path.join(projectDir, "apps/api/package.json"),
+    path.join(projectDir, "apps/api/package.json")
   ) as PackageJson;
 
   dependencies.forEach((pkgName) => {
@@ -35,6 +35,6 @@ export const addPackageDependency = (opts: {
     sortedPkgJson,
     {
       spaces: 2,
-    },
+    }
   );
 };

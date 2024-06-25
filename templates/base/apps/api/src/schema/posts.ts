@@ -1,5 +1,5 @@
-import { z } from "@hono/zod-openapi";
-import { createRoute } from "@hono/zod-openapi";
+import { createRoute, z } from "@hono/zod-openapi";
+
 const postSchema = z.object({
   id: z.number(),
   title: z.string(),

@@ -16,5 +16,7 @@
   "engines": {
     "node": ">=18"
   },
-  "workspaces": ["apps/*"]
+  "workspaces": [
+    "apps/*"
+  ]
 }

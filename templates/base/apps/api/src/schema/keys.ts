@@ -1,5 +1,4 @@
-import { z } from "@hono/zod-openapi";
-import { createRoute } from "@hono/zod-openapi";
+import { createRoute, z } from "@hono/zod-openapi";
 
 export const createKey = createRoute({
   method: "get",

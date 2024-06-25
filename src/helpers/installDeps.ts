@@ -14,7 +14,7 @@ const execWithSpinner = async (
     args?: string[];
     stdout?: StdioOption;
     onDataHandle?: (spinner: Ora) => (data: Buffer) => void;
-  },
+  }
 ) => {
   const { onDataHandle, args = ["install"], stdout = "pipe" } = options;
 
@@ -35,7 +35,7 @@ const execWithSpinner = async (
 
 const runInstallCommand = async (
   pkgManager: PackageManager,
-  projectDir: string,
+  projectDir: string
 ): Promise<Ora | null> => {
   switch (pkgManager) {
     // When using npm, inherit the stderr stream so that the progress bar is shown
@@ -84,6 +84,6 @@ export const installDependencies = async ({
   // If the spinner was used to show the progress, use succeed method on it
   // If not, use the succeed on a new spinner
   (installSpinner ?? ora()).succeed(
-    chalk.green("Successfully installed dependencies!\n"),
+    chalk.green("Successfully installed dependencies!\n")
   );
 };

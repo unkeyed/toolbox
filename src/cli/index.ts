@@ -45,12 +45,12 @@ export const runCli = async (): Promise<CliResults> => {
     .description("A CLI for creating low latency, high performance APIs")
     .argument(
       "[dir]",
-      "The name of the application, as well as the name of the directory to create",
+      "The name of the application, as well as the name of the directory to create"
     )
     .option(
       "--noInstall",
       "Explicitly tell the CLI to not run the package manager's install command",
-      false,
+      false
     )
     .parse(process.argv);
   const cliProvidedName = program.args[0];
@@ -97,7 +97,7 @@ export const runCli = async (): Promise<CliResults> => {
         onCancel() {
           process.exit(1);
         },
-      },
+      }
     );
 
     const packages: AvailablePackages[] = [];

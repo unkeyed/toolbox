@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-import { createProject } from "./helpers/createProject.js";
 import { buildPkgInstallerMap } from "~/installers/index.js";
 import { parseNameAndPath } from "~/utils/parseNameAndPath.js";
 import { runCli } from "./cli/index.js";
-import { nextSteps } from "./helpers/nextSteps.js";
-import { installDependencies } from "./helpers/installDeps.js";
 import { TITLE_TEXT } from "./consts.js";
+import { createProject } from "./helpers/createProject.js";
+import { installDependencies } from "./helpers/installDeps.js";
+import { nextSteps } from "./helpers/nextSteps.js";
 
 const main = async () => {
   console.log(TITLE_TEXT);
@@ -38,7 +38,7 @@ main().catch((err) => {
     console.error(err);
   } else {
     console.error(
-      "An unknown error has occurred. Please open an issue on github with the below:",
+      "An unknown error has occurred. Please open an issue on github with the below:"
     );
     console.log(err);
   }

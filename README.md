@@ -4,9 +4,9 @@ Unkey's toolbox CLI is a command line interface that provides a set of tools to 
 
 Currently, the CLI provides the following:
 
-- *Generated API Demo*: A generated API demo that demonstrates how to build a performant API using Hono, Turso, Unkey and a choice of ORM (Drizzle or Prisma).
+- _Generated API Demo_: A generated API demo that demonstrates how to build a performant API using Hono, Turso, Unkey and a choice of ORM (Drizzle or Prisma).
 
-- *Documentation*: Documentation through the FumaDocs open source project, including generated API documentation from the generated API demo.
+- _Documentation_: Documentation through the FumaDocs open source project, including generated API documentation from the generated API demo.
 
 ## How to setup and test
 

@@ -5,8 +5,8 @@ import { type PackageJson } from "type-fest";
 import { PKG_ROOT } from "~/consts.js";
 import { type Installer } from "~/installers/index.js";
 import { addPackageDependency } from "~/utils/addPackageDependency.js";
-import { type AvailableDependencies } from "./dependencyVersionMap.js";
 import { getUserPkgManager } from "~/utils/getUserPkgManager.js";
+import { type AvailableDependencies } from "./dependencyVersionMap.js";
 
 export const drizzleInstaller: Installer = ({
   projectDir,
@@ -57,7 +57,7 @@ export const drizzleInstaller: Installer = ({
   fs.writeFileSync(path.join(projectDir, "package.json"), modifiedData);
   fs.appendFileSync(
     path.join(projectDir, "package.json"),
-    `,\n "packageManager":  "${turboManager}" \n }`,
+    `,\n "packageManager":  "${turboManager}" \n }`
   );
 
   const extrasDir = path.join(PKG_ROOT, "templates/extras");

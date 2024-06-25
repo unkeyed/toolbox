@@ -2,6 +2,7 @@ import { prismaInstaller } from "~/installers/prisma.js";
 import { type PackageManager } from "~/utils/getUserPkgManager.js";
 import { drizzleInstaller } from "./drizzle.js";
 import { fumaInstaller } from "./fumadocs.js";
+
 export const availablePackages = ["prisma", "drizzle", "docs"] as const;
 export type AvailablePackages = (typeof availablePackages)[number];
 
@@ -27,7 +28,7 @@ export type PkgInstallerMap = {
 };
 
 export const buildPkgInstallerMap = (
-  packages: AvailablePackages[],
+  packages: AvailablePackages[]
 ): PkgInstallerMap => ({
   prisma: {
     inUse: packages.includes("prisma"),

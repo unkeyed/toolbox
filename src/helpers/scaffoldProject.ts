@@ -23,13 +23,13 @@ export const scaffoldProject = async ({
     if (fs.readdirSync(projectDir).length === 0) {
       if (projectName !== ".")
         spinner.info(
-          `${chalk.cyan.bold(projectName)} exists but is empty, continuing...\n`,
+          `${chalk.cyan.bold(projectName)} exists but is empty, continuing...\n`
         );
     } else {
       spinner.stopAndPersist();
       const overwriteDir = await p.select({
         message: `${chalk.redBright.bold("Warning:")} ${chalk.cyan.bold(
-          projectName,
+          projectName
         )} already exists and isn't empty. How would you like to proceed?`,
         options: [
           {
@@ -69,7 +69,7 @@ export const scaffoldProject = async ({
 
       if (overwriteDir === "clear") {
         spinner.info(
-          `Emptying ${chalk.cyan.bold(projectName)} and creating a new API..\n`,
+          `Emptying ${chalk.cyan.bold(projectName)} and creating a new API..\n`
         );
         fs.emptyDirSync(projectDir);
       }
@@ -81,17 +81,17 @@ export const scaffoldProject = async ({
   fs.copySync(srcDir, projectDir);
   fs.renameSync(
     path.join(projectDir, "apps/api/_gitignore"),
-    path.join(projectDir, "apps/api/.gitignore"),
+    path.join(projectDir, "apps/api/.gitignore")
   );
   fs.renameSync(
     path.join(projectDir, "apps/api/_dev.vars"),
-    path.join(projectDir, "apps/api/.dev.vars"),
+    path.join(projectDir, "apps/api/.dev.vars")
   );
 
   const scaffoldedName =
     projectName === "." ? "API" : chalk.cyan.bold(projectName);
 
   spinner.succeed(
-    `${scaffoldedName} ${chalk.green("scaffolded successfully!")}\n`,
+    `${scaffoldedName} ${chalk.green("scaffolded successfully!")}\n`
   );
 };

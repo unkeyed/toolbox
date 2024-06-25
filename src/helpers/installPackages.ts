@@ -19,9 +19,7 @@ export const installPackages = (options: InstallPackagesOptions) => {
       const spinner = ora(`API for ${name}...`).start();
       pkgOpts.installer(options);
       spinner.succeed(
-        chalk.green(
-          `Successfully setup API code for ${chalk.green.bold(name)}`,
-        ),
+        chalk.green(`Successfully setup API code for ${chalk.green.bold(name)}`)
       );
     }
   }

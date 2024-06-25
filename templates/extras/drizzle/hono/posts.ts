@@ -1,17 +1,18 @@
-import { drizzle } from "drizzle-orm/libsql";
-import { eq } from "drizzle-orm";
-import { posts as postsTable } from "../db/schema";
-import { createClient } from "@libsql/client";
 import { OpenAPIHono } from "@hono/zod-openapi";
-import {
-  getPosts,
-  createPost,
-  getPost,
-  updatePost,
-  deletePost,
-} from "../schema/posts";
-import { type UnkeyContext, unkey } from "@unkey/hono";
+import { createClient } from "@libsql/client";
+import { unkey, type UnkeyContext } from "@unkey/hono";
+import { eq } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/libsql";
+
+import { posts as postsTable } from "../db/schema";
 import { cache } from "../lib/cache";
+import {
+  createPost,
+  deletePost,
+  getPost,
+  getPosts,
+  updatePost,
+} from "../schema/posts";
 
 type Bindings = {
   TURSO_DATABASE_URL: string;
@@ -81,7 +82,7 @@ posts.openapi(getPost, async (c) => {
       {
         error: "Unauthorized",
       },
-      401,
+      401
     );
   }
   const turso = createClient({
@@ -123,7 +124,7 @@ posts.openapi(getPost, async (c) => {
       id: post.val.id,
       title: post.val.title,
     },
-    200,
+    200
   );
 });
 
@@ -154,7 +155,7 @@ posts.openapi(updatePost, async (c) => {
       post: results[0].post,
       title: results[0].title,
     },
-    200,
+    200
   );
 });
 

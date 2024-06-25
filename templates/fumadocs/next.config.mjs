@@ -1,4 +1,4 @@
-import createMDX from 'fumadocs-mdx/config';
+import createMDX from "fumadocs-mdx/config";
 
 const withMDX = createMDX();
 
