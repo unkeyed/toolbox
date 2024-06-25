@@ -1,7 +1,7 @@
 {
   "name": "@unkey/api-toolbox",
   "version": "1.0.0",
-  "description": "",
+  "description": "A batteries included toolbox for creating performant APIs",
   "type": "module",
   "exports": "./dist/index.js",
   "engines": {
@@ -20,7 +20,7 @@
     "pub:next": "pnpm build && npm publish --tag next",
     "pub:release": "pnpm build && npm publish"
   },
-  "keywords": [],
+  "keywords": ["API toolbox", "API generator", "Unkey"],
   "author": "James Perkins",
   "license": "MIT",
   "devDependencies": {
