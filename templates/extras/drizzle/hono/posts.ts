@@ -1,0 +1,191 @@
+import { drizzle } from "drizzle-orm/libsql";
+import { eq } from "drizzle-orm";
+import { posts as postsTable } from "../db/schema";
+import { createClient } from "@libsql/client";
+import { OpenAPIHono } from "@hono/zod-openapi";
+import {
+  getPosts,
+  createPost,
+  getPost,
+  updatePost,
+  deletePost,
+} from "../schema/posts";
+import { type UnkeyContext, unkey } from "@unkey/hono";
+import { cache } from "../lib/cache";
+
+type Bindings = {
+  TURSO_DATABASE_URL: string;
+  TURSO_AUTH_TOKEN: string;
+  UNKEY_API_ID: string;
+};
+
+const posts = new OpenAPIHono<{
+  Variables: { unkey: UnkeyContext };
+  Bindings: Bindings;
+}>();
+
+posts.use("*", async (c, next) => {
+  const handler = unkey({ apiId: c.env.UNKEY_API_ID });
+  await handler(c, next);
+});
+
+posts.openapi(getPosts, async (c) => {
+  const result = c.get("unkey");
+  if (!result?.valid) {
+    return c.json({ error: "authorized", code: 401 }, 401);
+  }
+
+  const turso = createClient({
+    url: c.env.TURSO_DATABASE_URL!,
+    authToken: c.env.TURSO_AUTH_TOKEN,
+  });
+
+  const db = drizzle(turso);
+  const results = await db.select().from(postsTable).execute();
+
+  if (!db) {
+    return c.json({ error: "Missing title or post", code: 400 }, 400);
+  }
+  return c.json({ posts: results }, 200);
+});
+
+posts.openapi(createPost, async (c) => {
+  const result = c.get("unkey");
+  if (!result?.valid) {
+    return c.json({ error: "authorized" }, 401);
+  }
+  const { title, post }: { title: string; post: string } = await c.req.json();
+  if (!title || !post) {
+    return c.json({ error: "Missing title or post" }, 400);
+  }
+  const turso = createClient({
+    url: c.env.TURSO_DATABASE_URL!,
+    authToken: c.env.TURSO_AUTH_TOKEN,
+  });
+
+  const db = drizzle(turso);
+  const results = await db
+    .insert(postsTable)
+    .values({ title, post })
+    .returning()
+    .execute();
+  if (!results[0].id) {
+    return c.json({ error: "Error creating a new post" }, 400);
+  }
+  return c.json({}, 201);
+});
+posts.openapi(getPost, async (c) => {
+  const result = c.get("unkey");
+  if (!result?.valid) {
+    return c.json(
+      {
+        error: "Unauthorized",
+      },
+      401,
+    );
+  }
+  const turso = createClient({
+    url: c.env.TURSO_DATABASE_URL!,
+    authToken: c.env.TURSO_AUTH_TOKEN,
+  });
+
+  const db = drizzle(turso);
+
+  const id = c.req.param("id");
+  const post = await cache.post.swr(id, async () => {
+    const result = await db
+      .select()
+      .from(postsTable)
+      .where(eq(postsTable.id, Number.parseInt(c.req.param("id"))));
+    if (result.length === 0) {
+      return undefined;
+    }
+    return result[0];
+  });
+  if (!post.val) {
+    return c.json({ error: "Post does not exist with this id" }, 400);
+  }
+
+  // null check post and id
+  // return post and id
+
+  if (
+    post.val.post === null ||
+    post.val.id === null ||
+    post.val.title === null
+  ) {
+    return c.json({ error: "Post does not exist with this id" }, 400);
+  }
+
+  return c.json(
+    {
+      post: post.val.post,
+      id: post.val.id,
+      title: post.val.title,
+    },
+    200,
+  );
+});
+
+posts.openapi(updatePost, async (c) => {
+  const result = c.get("unkey");
+  if (!result?.valid) {
+    return c.json({ error: "authorized" }, 401);
+  }
+  const postId = Number.parseInt(c.req.param("id"));
+  const { title, post } = await c.req.json();
+  const turso = createClient({
+    url: c.env.TURSO_DATABASE_URL!,
+    authToken: c.env.TURSO_AUTH_TOKEN,
+  });
+
+  const db = drizzle(turso);
+  const results = await db
+    .update(postsTable)
+    .set({ title, post })
+    .where(eq(postsTable.id, postId))
+    .returning();
+  if (results.length === 0) {
+    return c.json({ error: "Post does not exist with this id" }, 400);
+  }
+  return c.json(
+    {
+      id: results[0].id,
+      post: results[0].post,
+      title: results[0].title,
+    },
+    200,
+  );
+});
+
+posts.openapi(deletePost, async (c) => {
+  const result = c.get("unkey");
+  if (!result?.valid) {
+    return c.json({ error: "Authorized" }, 401);
+  }
+  const postId = Number.parseInt(c.req.param("id"));
+
+  const turso = createClient({
+    url: c.env.TURSO_DATABASE_URL!,
+    authToken: c.env.TURSO_AUTH_TOKEN,
+  });
+
+  const db = drizzle(turso);
+  const results = await db
+    .delete(postsTable)
+    .where(eq(postsTable.id, postId))
+    .returning();
+  if (!results[0].id) {
+    return c.json({ error: "Post does not exist with this id" }, 400);
+  }
+  return c.json({}, 201);
+});
+
+posts.doc("/doc", {
+  openapi: "3.0.0",
+  info: {
+    version: "1.0.0",
+    title: "Posts API",
+  },
+});
+export default posts;

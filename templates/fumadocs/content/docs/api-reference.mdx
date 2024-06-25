@@ -1,0 +1,908 @@
+---
+title: API reference
+toc: false
+---
+
+import { Root, API, APIInfo, APIExample, Responses, Response, ResponseTypes, ExampleResponse, TypeScriptResponse, Property, ObjectCollapsible, Requests, Request } from "fumadocs-ui/components/api";
+
+<Root>
+
+<API>
+
+<APIInfo method={"GET"} route={"/keys/create/"}>
+
+| Status code | Description |
+| ----------- | ----------- |
+| `200` | Successful response when a key is created |
+| `400` | Error occured processing the request |
+| `429` | User has been rate limited |
+
+</APIInfo>
+
+<APIExample>
+
+<Requests items={["cURL","JavaScript"]}>
+
+<Request value={"cURL"}>
+
+```bash
+curl -X GET "https://example.com/keys/create/"
+```
+
+</Request>
+
+<Request value={"JavaScript"}>
+
+```js
+fetch("https://example.com/keys/create/", {
+  method: "GET"
+});
+```
+
+</Request>
+
+</Requests>
+
+<Responses items={["200","400","429"]}>
+
+<Response value={"200"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "key": "1234567890",
+  "keyId": "1234567890"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  /**
+   * The key
+   */
+  key: string;
+  /**
+   * The keyId
+   */
+  keyId: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"400"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "error": "Error creating key"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  /**
+   * Error occured processing the request
+   */
+  error: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"429"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "error": "Rate limit exceeded"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  /**
+   * Rate limit exceeded
+   */
+  error: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+</Responses>
+
+</APIExample>
+
+</API>
+
+<API>
+
+<APIInfo method={"GET"} route={"/posts/all/"}>
+
+### Header Parameters
+
+<Property name={"authorization"} type={"string"} required={true} deprecated={false}>
+
+<span>Example:  `"Bearer UNKEY_API_KEY"`</span>
+
+</Property>
+
+| Status code | Description |
+| ----------- | ----------- |
+| `200` | Retrieve list of posts |
+| `400` | Error for when something goes wrong while fetching posts. |
+| `401` | User is not authorized to access this resource. |
+
+</APIInfo>
+
+<APIExample>
+
+<Requests items={["cURL","JavaScript"]}>
+
+<Request value={"cURL"}>
+
+```bash
+curl -X GET "https://example.com/posts/all/" \
+  -H "authorization: Bearer UNKEY_API_KEY"
+```
+
+</Request>
+
+<Request value={"JavaScript"}>
+
+```js
+fetch("https://example.com/posts/all/", {
+  method: "GET",
+  headers: {
+  "authorization": "Bearer UNKEY_API_KEY"
+}
+});
+```
+
+</Request>
+
+</Requests>
+
+<Responses items={["200","400","401"]}>
+
+<Response value={"200"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "posts": [
+    {
+      "id": 0,
+      "title": "string",
+      "post": "string"
+    }
+  ]
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  posts: {
+    id: number;
+    title: string;
+    post: string;
+  }[];
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"400"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "error": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  error: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"401"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "error": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  error: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+</Responses>
+
+</APIExample>
+
+</API>
+
+<API>
+
+<APIInfo method={"POST"} route={"/posts/create/"}>
+
+### Request Body (Optional)
+
+<Property name={"title"} type={"string"} required={true} deprecated={undefined}>
+
+</Property>
+
+<Property name={"post"} type={"string"} required={true} deprecated={undefined}>
+
+</Property>
+
+### Header Parameters
+
+<Property name={"authorization"} type={"string"} required={true} deprecated={false}>
+
+<span>Example:  `"Bearer UNKEY_API_KEY"`</span>
+
+</Property>
+
+| Status code | Description |
+| ----------- | ----------- |
+| `201` | Create a post |
+| `400` | Error occured during the creation of the post. |
+| `401` | User is not authorized to access this resource. |
+
+</APIInfo>
+
+<APIExample>
+
+<Requests items={["cURL","JavaScript"]}>
+
+<Request value={"cURL"}>
+
+```bash
+curl -X POST "https://example.com/posts/create/" \
+  -H "authorization: Bearer UNKEY_API_KEY" \
+  -d '{
+  "title": "string",
+  "post": "string"
+}'
+```
+
+</Request>
+
+<Request value={"JavaScript"}>
+
+```js
+fetch("https://example.com/posts/create/", {
+  method: "POST",
+  headers: {
+  "authorization": "Bearer UNKEY_API_KEY"
+}
+});
+```
+
+</Request>
+
+</Requests>
+
+<Responses items={["201","400","401"]}>
+
+<Response value={"201"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"400"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "error": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  error: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"401"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "error": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  error: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+</Responses>
+
+</APIExample>
+
+</API>
+
+<API>
+
+<APIInfo method={"GET"} route={"/posts/get/:id"}>
+
+### Path Parameters
+
+<Property name={"id"} type={"string"} required={true} deprecated={false}>
+
+</Property>
+
+### Header Parameters
+
+<Property name={"authorization"} type={"string"} required={true} deprecated={false}>
+
+<span>Example:  `"Bearer UNKEY_API_KEY"`</span>
+
+</Property>
+
+| Status code | Description |
+| ----------- | ----------- |
+| `200` | Authorized Response |
+| `400` | error returned when fetching single post and something went wrong |
+| `401` | User is not authorized to access this resource. |
+
+</APIInfo>
+
+<APIExample>
+
+<Requests items={["cURL","JavaScript"]}>
+
+<Request value={"cURL"}>
+
+```bash
+curl -X GET "https://example.com/posts/get/:id" \
+  -H "authorization: Bearer UNKEY_API_KEY"
+```
+
+</Request>
+
+<Request value={"JavaScript"}>
+
+```js
+fetch("https://example.com/posts/get/:id", {
+  method: "GET",
+  headers: {
+  "authorization": "Bearer UNKEY_API_KEY"
+}
+});
+```
+
+</Request>
+
+</Requests>
+
+<Responses items={["200","400","401"]}>
+
+<Response value={"200"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "id": 0,
+  "title": "string",
+  "post": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  id: number;
+  title: string;
+  post: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"400"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "error": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  error: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"401"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "error": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  error: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+</Responses>
+
+</APIExample>
+
+</API>
+
+<API>
+
+<APIInfo method={"PATCH"} route={"/posts/update/:id"}>
+
+### Request Body (Optional)
+
+<Property name={"title"} type={"string"} required={true} deprecated={undefined}>
+
+</Property>
+
+<Property name={"post"} type={"string"} required={true} deprecated={undefined}>
+
+</Property>
+
+### Path Parameters
+
+<Property name={"id"} type={"string"} required={true} deprecated={false}>
+
+</Property>
+
+### Header Parameters
+
+<Property name={"authorization"} type={"string"} required={true} deprecated={false}>
+
+<span>Example:  `"Bearer UNKEY_API_KEY"`</span>
+
+</Property>
+
+| Status code | Description |
+| ----------- | ----------- |
+| `200` | Update post |
+| `400` | Error for when something went wrong while updating post. |
+| `401` | User is not authorized to access this resource. |
+
+</APIInfo>
+
+<APIExample>
+
+<Requests items={["cURL","JavaScript"]}>
+
+<Request value={"cURL"}>
+
+```bash
+curl -X PATCH "https://example.com/posts/update/:id" \
+  -H "authorization: Bearer UNKEY_API_KEY" \
+  -d '{
+  "title": "string",
+  "post": "string"
+}'
+```
+
+</Request>
+
+<Request value={"JavaScript"}>
+
+```js
+fetch("https://example.com/posts/update/:id", {
+  method: "PATCH",
+  headers: {
+  "authorization": "Bearer UNKEY_API_KEY"
+}
+});
+```
+
+</Request>
+
+</Requests>
+
+<Responses items={["200","400","401"]}>
+
+<Response value={"200"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "id": 0,
+  "title": "string",
+  "post": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  id: number;
+  title: string;
+  post: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"400"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "error": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  error: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"401"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "error": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  error: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+</Responses>
+
+</APIExample>
+
+</API>
+
+<API>
+
+<APIInfo method={"DELETE"} route={"/posts/delete/:id"}>
+
+### Path Parameters
+
+<Property name={"id"} type={"number"} required={true} deprecated={false}>
+
+</Property>
+
+### Header Parameters
+
+<Property name={"authorization"} type={"string"} required={true} deprecated={false}>
+
+<span>Example:  `"Bearer UNKEY_API_KEY"`</span>
+
+</Property>
+
+| Status code | Description |
+| ----------- | ----------- |
+| `201` | Delete Post |
+| `400` | Error for when something went wrong while deleting post. |
+| `401` | User is not authorized to access this resource. |
+
+</APIInfo>
+
+<APIExample>
+
+<Requests items={["cURL","JavaScript"]}>
+
+<Request value={"cURL"}>
+
+```bash
+curl -X DELETE "https://example.com/posts/delete/:id" \
+  -H "authorization: Bearer UNKEY_API_KEY"
+```
+
+</Request>
+
+<Request value={"JavaScript"}>
+
+```js
+fetch("https://example.com/posts/delete/:id", {
+  method: "DELETE",
+  headers: {
+  "authorization": "Bearer UNKEY_API_KEY"
+}
+});
+```
+
+</Request>
+
+</Requests>
+
+<Responses items={["201","400","401"]}>
+
+<Response value={"201"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"400"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "error": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  error: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"401"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "error": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  error: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+</Responses>
+
+</APIExample>
+
+</API>
+
+</Root>
