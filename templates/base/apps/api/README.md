@@ -1,6 +1,6 @@
 # Created by Unkey's toolbox
 
-This API is built with speed, security and in mind. The API is built with [Hono](https://hono.dev), [Unkey](https://unkey.com) and [Turso](https://turso.io) with hosting on [Cloudlfare workers](https://cloudlfare.com).
+This API is built with speed, and security in mind. The API is built with [Hono](https://hono.dev), [Unkey](https://unkey.com) and [Turso](https://turso.io) with hosting on [Cloudlfare workers](https://cloudlfare.com).
 
 ## Getting Started
 
