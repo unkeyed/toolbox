@@ -8,7 +8,7 @@ Currently, the CLI provides the following:
 
 - _Documentation_: Documentation through the FumaDocs open source project, including generated API documentation from the generated API demo.
 
-![CLI example](https://res.cloudinary.com/dub20ptvt/video/upload/v1719442663/cli-example.mp4)
+![CLI example](https://res.cloudinary.com/dub20ptvt/image/upload/v1719443008/cli-demo.gif)
 
 ## How to setup and test
 
