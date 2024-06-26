@@ -11,19 +11,14 @@ Currently, the CLI provides the following:
 ## How to setup and test
 
 ```bash
-git clone https://unkeyed/unkey-toolbox-cli
-cd unkey-toolbox-cli
+git clone https://unkeyed/api-toolbox
+cd api-toolbox
 npm install
 npm run dev
 ```
 
 If you want to build the CLI, you can run `npm run build`.You can then use either npm link or you can just run `node <directory>/dist/index.js` to run the CLI.
 
-## How to use
-
-```bash
-unkey-toolbox-cli
-```
 
 ## Acknowledgements
 
