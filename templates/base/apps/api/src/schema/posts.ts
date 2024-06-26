@@ -1,5 +1,7 @@
 import { createRoute, z } from "@hono/zod-openapi";
 
+import { openApiErrorResponses } from "./errors";
+
 const postSchema = z.object({
   id: z.number(),
   title: z.string(),
@@ -8,10 +10,6 @@ const postSchema = z.object({
 
 const postListSchema = z.object({
   posts: z.array(postSchema),
-});
-
-const errorSchema = z.object({
-  error: z.string(),
 });
 
 const HeadersSchema = z.object({
@@ -36,24 +34,7 @@ export const getPosts = createRoute({
       },
       description: "Retrieve list of posts",
     },
-    400: {
-      content: {
-        "application/json": {
-          schema: errorSchema,
-        },
-      },
-      example: "Error occured while fetching posts.",
-      description: "Error for when something goes wrong while fetching posts.",
-    },
-    401: {
-      content: {
-        "application/json": {
-          schema: errorSchema,
-        },
-      },
-      example: "not authorized",
-      description: "User is not authorized to access this resource.",
-    },
+    ...openApiErrorResponses,
   },
 });
 
@@ -84,24 +65,7 @@ export const createPost = createRoute({
       },
       description: "Create a post",
     },
-    400: {
-      content: {
-        "application/json": {
-          schema: errorSchema,
-        },
-      },
-      example: "Error occured while creating post.",
-      description: "Error occured during the creation of the post.",
-    },
-    401: {
-      content: {
-        "application/json": {
-          schema: errorSchema,
-        },
-      },
-      example: "not authorized",
-      description: "User is not authorized to access this resource.",
-    },
+    ...openApiErrorResponses,
   },
 });
 
@@ -126,25 +90,7 @@ export const getPost = createRoute({
       },
       description: "Authorized Response",
     },
-    400: {
-      content: {
-        "application/json": {
-          schema: errorSchema,
-        },
-      },
-      example: "Error occured while fetching single post.",
-      description:
-        "error returned when fetching single post and something went wrong",
-    },
-    401: {
-      content: {
-        "application/json": {
-          schema: errorSchema,
-        },
-      },
-      example: "not authorized",
-      description: "User is not authorized to access this resource.",
-    },
+    ...openApiErrorResponses,
   },
 });
 
@@ -178,24 +124,7 @@ export const updatePost = createRoute({
       },
       description: "Update post",
     },
-    400: {
-      content: {
-        "application/json": {
-          schema: errorSchema,
-        },
-      },
-      example: "Error occured while updating this post.",
-      description: "Error for when something went wrong while updating post.",
-    },
-    401: {
-      content: {
-        "application/json": {
-          schema: errorSchema,
-        },
-      },
-      example: "not authorized",
-      description: "User is not authorized to access this resource.",
-    },
+    ...openApiErrorResponses,
   },
 });
 
@@ -219,23 +148,6 @@ export const deletePost = createRoute({
       },
       description: "Delete Post",
     },
-    400: {
-      content: {
-        "application/json": {
-          schema: errorSchema,
-        },
-      },
-      example: "Error occured while deleting post.",
-      description: "Error for when something went wrong while deleting post.",
-    },
-    401: {
-      content: {
-        "application/json": {
-          schema: errorSchema,
-        },
-      },
-      example: "not authorized",
-      description: "User is not authorized to access this resource.",
-    },
+    ...openApiErrorResponses,
   },
 });

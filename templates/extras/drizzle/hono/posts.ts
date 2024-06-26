@@ -32,7 +32,13 @@ posts.use("*", async (c, next) => {
 posts.openapi(getPosts, async (c) => {
   const result = c.get("unkey");
   if (!result?.valid) {
-    return c.json({ error: "authorized", code: 401 }, 401);
+    return c.json(
+      {
+        message: "unauthorized",
+        docs: "https://localhost:3000/api-reference/get",
+      },
+      401
+    );
   }
 
   const turso = createClient({
@@ -44,7 +50,13 @@ posts.openapi(getPosts, async (c) => {
   const results = await db.select().from(postsTable).execute();
 
   if (!db) {
-    return c.json({ error: "Missing title or post", code: 400 }, 400);
+    return c.json(
+      {
+        message: "Error retrieving posts from database",
+        docs: "https://localhost:3000/api-reference/get",
+      },
+      400
+    );
   }
   return c.json({ posts: results }, 200);
 });
@@ -52,11 +64,23 @@ posts.openapi(getPosts, async (c) => {
 posts.openapi(createPost, async (c) => {
   const result = c.get("unkey");
   if (!result?.valid) {
-    return c.json({ error: "authorized" }, 401);
+    return c.json(
+      {
+        message: "unauthorized",
+        docs: "https://localhost:3000/api-reference/create",
+      },
+      401
+    );
   }
   const { title, post }: { title: string; post: string } = await c.req.json();
   if (!title || !post) {
-    return c.json({ error: "Missing title or post" }, 400);
+    return c.json(
+      {
+        message: "Missing title or post",
+        docs: "https://localhost:3000/api-reference/create",
+      },
+      400
+    );
   }
   const turso = createClient({
     url: c.env.TURSO_DATABASE_URL!,
@@ -70,7 +94,13 @@ posts.openapi(createPost, async (c) => {
     .returning()
     .execute();
   if (!results[0].id) {
-    return c.json({ error: "Error creating a new post" }, 400);
+    return c.json(
+      {
+        message: "Error creating post, please try again later.",
+        docs: "https://localhost:3000/api-reference/create",
+      },
+      400
+    );
   }
   return c.json({}, 201);
 });
@@ -79,7 +109,8 @@ posts.openapi(getPost, async (c) => {
   if (!result?.valid) {
     return c.json(
       {
-        error: "Unauthorized",
+        message: "unauthorized",
+        docs: "https://localhost:3000/api-reference/create",
       },
       401
     );
@@ -92,8 +123,8 @@ posts.openapi(getPost, async (c) => {
   const db = drizzle(turso);
 
   const id = c.req.param("id");
-  const cache = c.get("cache")
-  const post = await cache.post.swr(id, async () => {
+  const cache = c.get("cache");
+  const post = await cache?.post.swr(id, async () => {
     const result = await db
       .select()
       .from(postsTable)
@@ -104,18 +135,27 @@ posts.openapi(getPost, async (c) => {
     return result[0];
   });
   if (!post.val) {
-    return c.json({ error: "Post does not exist with this id" }, 400);
+    return c.json(
+      {
+        message: "Post does not exist with this id",
+        docs: "https://localhost:3000/api-reference/get",
+      },
+      404
+    );
   }
-
-  // null check post and id
-  // return post and id
 
   if (
     post.val.post === null ||
     post.val.id === null ||
     post.val.title === null
   ) {
-    return c.json({ error: "Post does not exist with this id" }, 400);
+    return c.json(
+      {
+        message: "Post does not exist with this id",
+        docs: "https://localhost:3000/api-reference/get",
+      },
+      404
+    );
   }
 
   return c.json(
@@ -131,7 +171,13 @@ posts.openapi(getPost, async (c) => {
 posts.openapi(updatePost, async (c) => {
   const result = c.get("unkey");
   if (!result?.valid) {
-    return c.json({ error: "authorized" }, 401);
+    return c.json(
+      {
+        message: "unauthorized",
+        docs: "https://localhost:3000/api-reference/create",
+      },
+      401
+    );
   }
   const postId = Number.parseInt(c.req.param("id"));
   const { title, post } = await c.req.json();
@@ -147,7 +193,13 @@ posts.openapi(updatePost, async (c) => {
     .where(eq(postsTable.id, postId))
     .returning();
   if (results.length === 0) {
-    return c.json({ error: "Post does not exist with this id" }, 400);
+    return c.json(
+      {
+        message: "Post does not exist with this id",
+        docs: "https://localhost:3000/api-reference/get",
+      },
+      404
+    );
   }
   return c.json(
     {
@@ -162,7 +214,13 @@ posts.openapi(updatePost, async (c) => {
 posts.openapi(deletePost, async (c) => {
   const result = c.get("unkey");
   if (!result?.valid) {
-    return c.json({ error: "Authorized" }, 401);
+    return c.json(
+      {
+        message: "unauthorized",
+        docs: "https://localhost:3000/api-reference/delete",
+      },
+      401
+    );
   }
   const postId = Number.parseInt(c.req.param("id"));
 
@@ -177,11 +235,15 @@ posts.openapi(deletePost, async (c) => {
     .where(eq(postsTable.id, postId))
     .returning();
   if (!results[0].id) {
-    return c.json({ error: "Post does not exist with this id" }, 400);
+    return c.json(
+      {
+        message: `Post does not exist with this id: ${postId}`,
+        docs: "https://localhost:3000/api-reference/delete",
+      },
+      404
+    );
   }
   return c.json({}, 201);
 });
 
-export {
-  posts
-}
+export { posts };
