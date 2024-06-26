@@ -35,7 +35,7 @@ posts.openapi(getPosts, async (c) => {
     return c.json(
       {
         message: "unauthorized",
-        docs: "https://localhost:3000/api-reference/get",
+        docs: "http://localhost:3000/docs/api-reference/",
       },
       401
     );
@@ -53,7 +53,7 @@ posts.openapi(getPosts, async (c) => {
     return c.json(
       {
         message: "Error retrieving posts from database",
-        docs: "https://localhost:3000/api-reference/get",
+        docs: "http://localhost:3000/docs/api-reference/",
       },
       400
     );
@@ -67,7 +67,7 @@ posts.openapi(createPost, async (c) => {
     return c.json(
       {
         message: "unauthorized",
-        docs: "https://localhost:3000/api-reference/create",
+        docs: "http://localhost:3000/docs/api-reference/",
       },
       401
     );
@@ -77,7 +77,7 @@ posts.openapi(createPost, async (c) => {
     return c.json(
       {
         message: "Missing title or post",
-        docs: "https://localhost:3000/api-reference/create",
+        docs: "http://localhost:3000/docs/api-reference/",
       },
       400
     );
@@ -97,7 +97,7 @@ posts.openapi(createPost, async (c) => {
     return c.json(
       {
         message: "Error creating post, please try again later.",
-        docs: "https://localhost:3000/api-reference/create",
+        docs: "http://localhost:3000/docs/api-reference/",
       },
       400
     );
@@ -110,7 +110,7 @@ posts.openapi(getPost, async (c) => {
     return c.json(
       {
         message: "unauthorized",
-        docs: "https://localhost:3000/api-reference/create",
+        docs: "http://localhost:3000/docs/api-reference/",
       },
       401
     );
@@ -138,7 +138,7 @@ posts.openapi(getPost, async (c) => {
     return c.json(
       {
         message: "Post does not exist with this id",
-        docs: "https://localhost:3000/api-reference/get",
+        docs: "http://localhost:3000/docs/api-reference/",
       },
       404
     );
@@ -152,7 +152,7 @@ posts.openapi(getPost, async (c) => {
     return c.json(
       {
         message: "Post does not exist with this id",
-        docs: "https://localhost:3000/api-reference/get",
+        docs: "http://localhost:3000/docs/api-reference/",
       },
       404
     );
@@ -174,7 +174,7 @@ posts.openapi(updatePost, async (c) => {
     return c.json(
       {
         message: "unauthorized",
-        docs: "https://localhost:3000/api-reference/create",
+        docs: "http://localhost:3000/docs/api-reference/",
       },
       401
     );
@@ -196,7 +196,7 @@ posts.openapi(updatePost, async (c) => {
     return c.json(
       {
         message: "Post does not exist with this id",
-        docs: "https://localhost:3000/api-reference/get",
+        docs: "http://localhost:3000/docs/api-reference/",
       },
       404
     );
@@ -217,7 +217,7 @@ posts.openapi(deletePost, async (c) => {
     return c.json(
       {
         message: "unauthorized",
-        docs: "https://localhost:3000/api-reference/delete",
+        docs: "http://localhost:3000/docs/api-reference/",
       },
       401
     );
@@ -238,7 +238,7 @@ posts.openapi(deletePost, async (c) => {
     return c.json(
       {
         message: `Post does not exist with this id: ${postId}`,
-        docs: "https://localhost:3000/api-reference/delete",
+        docs: "http://localhost:3000/docs/api-reference/",
       },
       404
     );
