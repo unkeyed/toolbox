@@ -1,18 +1,14 @@
-import { OpenAPIHono } from "@hono/zod-openapi";
-import { unkey, type UnkeyContext } from "@unkey/hono";
+import { initCache } from "./lib/cache";
+import { newApp } from "./lib/hono";
+import { initRatelimiter } from "./lib/ratelimit";
+import { keys } from "./routes/keys";
+import { posts } from "./routes/posts";
 
-import keys from "./routes/keys";
-import posts from "./routes/posts";
+const app = newApp();
 
-const app = new OpenAPIHono<{ Variables: { unkey: UnkeyContext } }>();
+app.use(initCache());
+app.use(initRatelimiter());
 
 app.route("/keys/", keys);
 app.route("/posts/", posts);
-app.doc("/doc", {
-  openapi: "3.0.0",
-  info: {
-    version: "1.0.0",
-    title: "API",
-  },
-});
 export default app;

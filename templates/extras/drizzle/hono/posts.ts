@@ -5,7 +5,6 @@ import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/libsql";
 
 import { posts as postsTable } from "../db/schema";
-import { cache } from "../lib/cache";
 import {
   createPost,
   deletePost,
@@ -93,6 +92,7 @@ posts.openapi(getPost, async (c) => {
   const db = drizzle(turso);
 
   const id = c.req.param("id");
+  const cache = c.get("cache")
   const post = await cache.post.swr(id, async () => {
     const result = await db
       .select()
@@ -182,11 +182,6 @@ posts.openapi(deletePost, async (c) => {
   return c.json({}, 201);
 });
 
-posts.doc("/doc", {
-  openapi: "3.0.0",
-  info: {
-    version: "1.0.0",
-    title: "Posts API",
-  },
-});
-export default posts;
+export {
+  posts
+}
