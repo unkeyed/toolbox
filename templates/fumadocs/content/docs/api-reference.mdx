@@ -1,5 +1,5 @@
 ---
-title: API reference
+title: My API
 toc: false
 ---
 
@@ -14,8 +14,13 @@ import { Root, API, APIInfo, APIExample, Responses, Response, ResponseTypes, Exa
 | Status code | Description |
 | ----------- | ----------- |
 | `200` | Successful response when a key is created |
-| `400` | Error occured processing the request |
-| `429` | User has been rate limited |
+| `400` | The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing). |
+| `401` | Although the HTTP standard specifies "unauthorized", semantically this response means "unauthenticated". That is, the client must authenticate itself to get the requested response. |
+| `403` | The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server. |
+| `404` | The server cannot find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 Forbidden to hide the existence of a resource from an unauthorized client. This response code is probably the most well known due to its frequent occurrence on the web. |
+| `409` | This response is sent when a request conflicts with the current state of the server. |
+| `429` | The user has sent too many requests in a given amount of time ("rate limiting") |
+| `500` | The server has encountered a situation it does not know how to handle. |
 
 </APIInfo>
 
@@ -43,7 +48,7 @@ fetch("https://example.com/keys/create/", {
 
 </Requests>
 
-<Responses items={["200","400","429"]}>
+<Responses items={["200","400","401","403","404","409","429","500"]}>
 
 <Response value={"200"}>
 
@@ -89,7 +94,8 @@ export interface Response {
 
 ```json
 {
-  "error": "Error creating key"
+  "message": "string",
+  "docs": "string"
 }
 ```
 
@@ -99,10 +105,128 @@ export interface Response {
 
 ```ts
 export interface Response {
-  /**
-   * Error occured processing the request
-   */
-  error: string;
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"401"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"403"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"404"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"409"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
 }
 ```
 
@@ -120,7 +244,8 @@ export interface Response {
 
 ```json
 {
-  "error": "Rate limit exceeded"
+  "message": "string",
+  "docs": "string"
 }
 ```
 
@@ -130,10 +255,38 @@ export interface Response {
 
 ```ts
 export interface Response {
-  /**
-   * Rate limit exceeded
-   */
-  error: string;
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"500"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
 }
 ```
 
@@ -164,8 +317,13 @@ export interface Response {
 | Status code | Description |
 | ----------- | ----------- |
 | `200` | Retrieve list of posts |
-| `400` | Error for when something goes wrong while fetching posts. |
-| `401` | User is not authorized to access this resource. |
+| `400` | The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing). |
+| `401` | Although the HTTP standard specifies "unauthorized", semantically this response means "unauthenticated". That is, the client must authenticate itself to get the requested response. |
+| `403` | The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server. |
+| `404` | The server cannot find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 Forbidden to hide the existence of a resource from an unauthorized client. This response code is probably the most well known due to its frequent occurrence on the web. |
+| `409` | This response is sent when a request conflicts with the current state of the server. |
+| `429` | The user has sent too many requests in a given amount of time ("rate limiting") |
+| `500` | The server has encountered a situation it does not know how to handle. |
 
 </APIInfo>
 
@@ -197,7 +355,7 @@ fetch("https://example.com/posts/all/", {
 
 </Requests>
 
-<Responses items={["200","400","401"]}>
+<Responses items={["200","400","401","403","404","409","429","500"]}>
 
 <Response value={"200"}>
 
@@ -245,7 +403,8 @@ export interface Response {
 
 ```json
 {
-  "error": "string"
+  "message": "string",
+  "docs": "string"
 }
 ```
 
@@ -255,7 +414,8 @@ export interface Response {
 
 ```ts
 export interface Response {
-  error: string;
+  message: string;
+  docs: string;
 }
 ```
 
@@ -273,7 +433,8 @@ export interface Response {
 
 ```json
 {
-  "error": "string"
+  "message": "string",
+  "docs": "string"
 }
 ```
 
@@ -283,7 +444,158 @@ export interface Response {
 
 ```ts
 export interface Response {
-  error: string;
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"403"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"404"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"409"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"429"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"500"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
 }
 ```
 
@@ -324,8 +636,13 @@ export interface Response {
 | Status code | Description |
 | ----------- | ----------- |
 | `201` | Create a post |
-| `400` | Error occured during the creation of the post. |
-| `401` | User is not authorized to access this resource. |
+| `400` | The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing). |
+| `401` | Although the HTTP standard specifies "unauthorized", semantically this response means "unauthenticated". That is, the client must authenticate itself to get the requested response. |
+| `403` | The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server. |
+| `404` | The server cannot find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 Forbidden to hide the existence of a resource from an unauthorized client. This response code is probably the most well known due to its frequent occurrence on the web. |
+| `409` | This response is sent when a request conflicts with the current state of the server. |
+| `429` | The user has sent too many requests in a given amount of time ("rate limiting") |
+| `500` | The server has encountered a situation it does not know how to handle. |
 
 </APIInfo>
 
@@ -361,7 +678,7 @@ fetch("https://example.com/posts/create/", {
 
 </Requests>
 
-<Responses items={["201","400","401"]}>
+<Responses items={["201","400","401","403","404","409","429","500"]}>
 
 <Response value={"201"}>
 
@@ -395,7 +712,8 @@ export interface Response {}
 
 ```json
 {
-  "error": "string"
+  "message": "string",
+  "docs": "string"
 }
 ```
 
@@ -405,7 +723,8 @@ export interface Response {}
 
 ```ts
 export interface Response {
-  error: string;
+  message: string;
+  docs: string;
 }
 ```
 
@@ -423,7 +742,8 @@ export interface Response {
 
 ```json
 {
-  "error": "string"
+  "message": "string",
+  "docs": "string"
 }
 ```
 
@@ -433,7 +753,158 @@ export interface Response {
 
 ```ts
 export interface Response {
-  error: string;
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"403"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"404"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"409"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"429"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"500"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
 }
 ```
 
@@ -470,8 +941,13 @@ export interface Response {
 | Status code | Description |
 | ----------- | ----------- |
 | `200` | Authorized Response |
-| `400` | error returned when fetching single post and something went wrong |
-| `401` | User is not authorized to access this resource. |
+| `400` | The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing). |
+| `401` | Although the HTTP standard specifies "unauthorized", semantically this response means "unauthenticated". That is, the client must authenticate itself to get the requested response. |
+| `403` | The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server. |
+| `404` | The server cannot find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 Forbidden to hide the existence of a resource from an unauthorized client. This response code is probably the most well known due to its frequent occurrence on the web. |
+| `409` | This response is sent when a request conflicts with the current state of the server. |
+| `429` | The user has sent too many requests in a given amount of time ("rate limiting") |
+| `500` | The server has encountered a situation it does not know how to handle. |
 
 </APIInfo>
 
@@ -503,7 +979,7 @@ fetch("https://example.com/posts/get/:id", {
 
 </Requests>
 
-<Responses items={["200","400","401"]}>
+<Responses items={["200","400","401","403","404","409","429","500"]}>
 
 <Response value={"200"}>
 
@@ -545,7 +1021,8 @@ export interface Response {
 
 ```json
 {
-  "error": "string"
+  "message": "string",
+  "docs": "string"
 }
 ```
 
@@ -555,7 +1032,8 @@ export interface Response {
 
 ```ts
 export interface Response {
-  error: string;
+  message: string;
+  docs: string;
 }
 ```
 
@@ -573,7 +1051,8 @@ export interface Response {
 
 ```json
 {
-  "error": "string"
+  "message": "string",
+  "docs": "string"
 }
 ```
 
@@ -583,7 +1062,158 @@ export interface Response {
 
 ```ts
 export interface Response {
-  error: string;
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"403"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"404"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"409"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"429"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"500"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
 }
 ```
 
@@ -630,8 +1260,13 @@ export interface Response {
 | Status code | Description |
 | ----------- | ----------- |
 | `200` | Update post |
-| `400` | Error for when something went wrong while updating post. |
-| `401` | User is not authorized to access this resource. |
+| `400` | The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing). |
+| `401` | Although the HTTP standard specifies "unauthorized", semantically this response means "unauthenticated". That is, the client must authenticate itself to get the requested response. |
+| `403` | The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server. |
+| `404` | The server cannot find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 Forbidden to hide the existence of a resource from an unauthorized client. This response code is probably the most well known due to its frequent occurrence on the web. |
+| `409` | This response is sent when a request conflicts with the current state of the server. |
+| `429` | The user has sent too many requests in a given amount of time ("rate limiting") |
+| `500` | The server has encountered a situation it does not know how to handle. |
 
 </APIInfo>
 
@@ -667,7 +1302,7 @@ fetch("https://example.com/posts/update/:id", {
 
 </Requests>
 
-<Responses items={["200","400","401"]}>
+<Responses items={["200","400","401","403","404","409","429","500"]}>
 
 <Response value={"200"}>
 
@@ -709,7 +1344,8 @@ export interface Response {
 
 ```json
 {
-  "error": "string"
+  "message": "string",
+  "docs": "string"
 }
 ```
 
@@ -719,7 +1355,8 @@ export interface Response {
 
 ```ts
 export interface Response {
-  error: string;
+  message: string;
+  docs: string;
 }
 ```
 
@@ -737,7 +1374,8 @@ export interface Response {
 
 ```json
 {
-  "error": "string"
+  "message": "string",
+  "docs": "string"
 }
 ```
 
@@ -747,7 +1385,158 @@ export interface Response {
 
 ```ts
 export interface Response {
-  error: string;
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"403"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"404"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"409"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"429"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"500"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
 }
 ```
 
@@ -784,8 +1573,13 @@ export interface Response {
 | Status code | Description |
 | ----------- | ----------- |
 | `201` | Delete Post |
-| `400` | Error for when something went wrong while deleting post. |
-| `401` | User is not authorized to access this resource. |
+| `400` | The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing). |
+| `401` | Although the HTTP standard specifies "unauthorized", semantically this response means "unauthenticated". That is, the client must authenticate itself to get the requested response. |
+| `403` | The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server. |
+| `404` | The server cannot find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 Forbidden to hide the existence of a resource from an unauthorized client. This response code is probably the most well known due to its frequent occurrence on the web. |
+| `409` | This response is sent when a request conflicts with the current state of the server. |
+| `429` | The user has sent too many requests in a given amount of time ("rate limiting") |
+| `500` | The server has encountered a situation it does not know how to handle. |
 
 </APIInfo>
 
@@ -817,7 +1611,7 @@ fetch("https://example.com/posts/delete/:id", {
 
 </Requests>
 
-<Responses items={["201","400","401"]}>
+<Responses items={["201","400","401","403","404","409","429","500"]}>
 
 <Response value={"201"}>
 
@@ -851,7 +1645,8 @@ export interface Response {}
 
 ```json
 {
-  "error": "string"
+  "message": "string",
+  "docs": "string"
 }
 ```
 
@@ -861,7 +1656,8 @@ export interface Response {}
 
 ```ts
 export interface Response {
-  error: string;
+  message: string;
+  docs: string;
 }
 ```
 
@@ -879,7 +1675,8 @@ export interface Response {
 
 ```json
 {
-  "error": "string"
+  "message": "string",
+  "docs": "string"
 }
 ```
 
@@ -889,7 +1686,158 @@ export interface Response {
 
 ```ts
 export interface Response {
-  error: string;
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"403"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"404"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"409"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"429"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
+}
+```
+
+</TypeScriptResponse>
+
+</ResponseTypes>
+
+</Response>
+
+<Response value={"500"}>
+
+<ResponseTypes>
+
+<ExampleResponse>
+
+```json
+{
+  "message": "string",
+  "docs": "string"
+}
+```
+
+</ExampleResponse>
+
+<TypeScriptResponse>
+
+```ts
+export interface Response {
+  message: string;
+  docs: string;
 }
 ```
 

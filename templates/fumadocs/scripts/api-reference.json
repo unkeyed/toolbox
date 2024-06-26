@@ -1,10 +1,17 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.0.0",
-    "title": "API Reference"
+    "title": "My API",
+    "version": "1.0.0"
   },
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "bearerFormat": "Bearer",
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
     "schemas": {},
     "parameters": {}
   },
@@ -36,37 +43,134 @@
             }
           },
           "400": {
-            "description": "Error occured processing the request",
+            "description": "The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
-                      "type": "string",
-                      "description": "Error occured processing the request",
-                      "example": "Error creating key"
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Although the HTTP standard specifies \"unauthorized\", semantically this response means \"unauthenticated\". That is, the client must authenticate itself to get the requested response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 Forbidden to hide the existence of a resource from an unauthorized client. This response code is probably the most well known due to its frequent occurrence on the web.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "This response is sent when a request conflicts with the current state of the server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
                 }
               }
             }
           },
           "429": {
-            "description": "User has been rate limited",
+            "description": "The user has sent too many requests in a given amount of time (\"rate limiting\")",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
-                      "type": "string",
-                      "description": "Rate limit exceeded",
-                      "example": "Rate limit exceeded"
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The server has encountered a situation it does not know how to handle.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
                 }
               }
             }
@@ -120,35 +224,134 @@
             }
           },
           "400": {
-            "example": "Error occured while fetching posts.",
-            "description": "Error for when something goes wrong while fetching posts.",
+            "description": "The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": ["message", "docs"]
                 }
               }
             }
           },
           "401": {
-            "example": "not authorized",
-            "description": "User is not authorized to access this resource.",
+            "description": "Although the HTTP standard specifies \"unauthorized\", semantically this response means \"unauthenticated\". That is, the client must authenticate itself to get the requested response.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 Forbidden to hide the existence of a resource from an unauthorized client. This response code is probably the most well known due to its frequent occurrence on the web.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "This response is sent when a request conflicts with the current state of the server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The user has sent too many requests in a given amount of time (\"rate limiting\")",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The server has encountered a situation it does not know how to handle.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
                 }
               }
             }
@@ -200,35 +403,134 @@
             }
           },
           "400": {
-            "example": "Error occured while creating post.",
-            "description": "Error occured during the creation of the post.",
+            "description": "The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": ["message", "docs"]
                 }
               }
             }
           },
           "401": {
-            "example": "not authorized",
-            "description": "User is not authorized to access this resource.",
+            "description": "Although the HTTP standard specifies \"unauthorized\", semantically this response means \"unauthenticated\". That is, the client must authenticate itself to get the requested response.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 Forbidden to hide the existence of a resource from an unauthorized client. This response code is probably the most well known due to its frequent occurrence on the web.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "This response is sent when a request conflicts with the current state of the server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The user has sent too many requests in a given amount of time (\"rate limiting\")",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The server has encountered a situation it does not know how to handle.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
                 }
               }
             }
@@ -281,35 +583,134 @@
             }
           },
           "400": {
-            "example": "Error occured while fetching single post.",
-            "description": "error returned when fetching single post and something went wrong",
+            "description": "The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": ["message", "docs"]
                 }
               }
             }
           },
           "401": {
-            "example": "not authorized",
-            "description": "User is not authorized to access this resource.",
+            "description": "Although the HTTP standard specifies \"unauthorized\", semantically this response means \"unauthenticated\". That is, the client must authenticate itself to get the requested response.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 Forbidden to hide the existence of a resource from an unauthorized client. This response code is probably the most well known due to its frequent occurrence on the web.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "This response is sent when a request conflicts with the current state of the server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The user has sent too many requests in a given amount of time (\"rate limiting\")",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The server has encountered a situation it does not know how to handle.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
                 }
               }
             }
@@ -380,35 +781,134 @@
             }
           },
           "400": {
-            "example": "Error occured while updating this post.",
-            "description": "Error for when something went wrong while updating post.",
+            "description": "The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": ["message", "docs"]
                 }
               }
             }
           },
           "401": {
-            "example": "not authorized",
-            "description": "User is not authorized to access this resource.",
+            "description": "Although the HTTP standard specifies \"unauthorized\", semantically this response means \"unauthenticated\". That is, the client must authenticate itself to get the requested response.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 Forbidden to hide the existence of a resource from an unauthorized client. This response code is probably the most well known due to its frequent occurrence on the web.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "This response is sent when a request conflicts with the current state of the server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The user has sent too many requests in a given amount of time (\"rate limiting\")",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The server has encountered a situation it does not know how to handle.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
                 }
               }
             }
@@ -450,35 +950,134 @@
             }
           },
           "400": {
-            "example": "Error occured while deleting post.",
-            "description": "Error for when something went wrong while deleting post.",
+            "description": "The server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": ["message", "docs"]
                 }
               }
             }
           },
           "401": {
-            "example": "not authorized",
-            "description": "User is not authorized to access this resource.",
+            "description": "Although the HTTP standard specifies \"unauthorized\", semantically this response means \"unauthenticated\". That is, the client must authenticate itself to get the requested response.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
                       "type": "string"
                     }
                   },
-                  "required": ["error"]
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 Forbidden to hide the existence of a resource from an unauthorized client. This response code is probably the most well known due to its frequent occurrence on the web.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "This response is sent when a request conflicts with the current state of the server.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "The user has sent too many requests in a given amount of time (\"rate limiting\")",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "The server has encountered a situation it does not know how to handle.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "docs"]
                 }
               }
             }
