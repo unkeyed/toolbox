@@ -8,7 +8,7 @@
   "dependencies": {
     "@hono/zod-openapi": "^0.14.5",
     "@unkey/api": "^0.20.7",
-    "@unkey/cache": "^1.0.0",
+    "@unkey/cache": "^1.0.2",
     "@unkey/hono": "^1.2.0",
     "@unkey/ratelimit": "^0.1.12",
     "hono": "^4.4.7",
