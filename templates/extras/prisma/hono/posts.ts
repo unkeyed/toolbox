@@ -4,7 +4,6 @@ import { PrismaLibSQL } from "@prisma/adapter-libsql";
 import { PrismaClient } from "@prisma/client";
 import { unkey, type UnkeyContext } from "@unkey/hono";
 
-import { cache } from "../lib/cache";
 import {
   createPost,
   deletePost,
@@ -81,6 +80,7 @@ posts.openapi(createPost, async (c) => {
   return c.json({}, 201);
 });
 posts.openapi(getPost, async (c) => {
+  const cache = c.get("cache")
   const result = c.get("unkey");
   if (!result?.valid) {
     return c.json({ error: "authorized", code: 401 }, 401);
@@ -177,4 +177,4 @@ posts.openapi(deletePost, async (c) => {
   return c.json({}, 201);
 });
 
-export default posts;
+export {posts};
