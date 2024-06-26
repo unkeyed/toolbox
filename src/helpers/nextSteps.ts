@@ -22,7 +22,13 @@ export const nextSteps = async ({
     console.info(`  ${pkgManager}`);
   }
 
-  if (packages?.prisma.inUse || packages?.drizzle.inUse) {
+  if (packages?.prisma.inUse) {
+    console.info(
+      `npx turso db shell YOUR_DATABASE_NAME < ./prisma/migrations/20240626173453_init/migration.sql`
+    );
+  }
+
+  if (packages?.drizzle.inUse) {
     if (["npm", "bun"].includes(pkgManager)) {
       console.info(`  ${pkgManager} run db:push`);
     } else {
