@@ -56,3 +56,5 @@ Then the post routes:
 /posts/update/:id
 /posts/delete/:id
 ```
+
+You also have access to the open-api spec found at http://localhost:8787/open-api

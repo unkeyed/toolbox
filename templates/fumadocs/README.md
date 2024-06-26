@@ -15,7 +15,7 @@ yarn dev
 
 Open http://localhost:3000/docs to view the documentation.
 
-You can also view the reference documentation for the API at http://localhost:3000/posts which is generated from the /scripts/ directory.
+You can also view the reference documentation for the API at http://localhost:3000/docs/api-reference which is generated from the /scripts/ directory.
 
 ## Learn More
 
