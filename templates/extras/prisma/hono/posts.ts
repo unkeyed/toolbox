@@ -4,6 +4,7 @@ import { PrismaLibSQL } from "@prisma/adapter-libsql";
 import { PrismaClient } from "@prisma/client";
 import { unkey, type UnkeyContext } from "@unkey/hono";
 
+import type { Cache } from "../../cache";
 import {
   createPost,
   deletePost,
@@ -19,7 +20,7 @@ type Bindings = {
 };
 
 const posts = new OpenAPIHono<{
-  Variables: { unkey: UnkeyContext };
+  Variables: { unkey: UnkeyContext; cache: Cache };
   Bindings: Bindings;
 }>();
 
