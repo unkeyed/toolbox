@@ -70,7 +70,7 @@ export const createPost = createRoute({
 });
 
 const getPostRequestSchema = z.object({
-  id: z.string(),
+  id: z.coerce.number().int(),
 });
 
 export const getPost = createRoute({
@@ -105,7 +105,7 @@ export const updatePost = createRoute({
   request: {
     headers: HeadersSchema,
     params: z.object({
-      id: z.string(),
+      id: z.coerce.number().int(),
     }),
     body: {
       content: {

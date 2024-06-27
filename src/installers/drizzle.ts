@@ -68,9 +68,12 @@ export const drizzleInstaller: Installer = ({
   const configFile = path.join(extrasDir, `/drizzle/config/${configName}`);
   const configDest = path.join(projectDir, "apps/api/drizzle.config.ts");
   const schemaName = databaseProvider === "turso" ? "turso.ts" : `base.ts`;
-  const schemaSrc = path.join(extrasDir, "drizzle/schema/", schemaName);
-  const schemaDest = path.join(projectDir, "apps/api/src/db/schema.ts");
-
+  const schemaSrc = path.join(extrasDir, "drizzle/db/", schemaName);
+  const schemaDest = path.join(projectDir, `apps/api/src/db/${schemaName}`);
+  const indexSrc = path.join(extrasDir, "drizzle/db/index.ts");
+  const indexDest = path.join(projectDir, `apps/api/src/db/index.ts`);
+  const databaseSrc = path.join(extrasDir, "drizzle/database.ts");
+  const databaseDest = path.join(projectDir, "apps/api/src/database.ts");
   const clientSrc = path.join(extrasDir, "drizzle/hono/posts.ts");
   const destination = path.join(projectDir, "apps/api/src/routes/posts.ts");
 
@@ -91,6 +94,9 @@ export const drizzleInstaller: Installer = ({
   fs.mkdirSync(path.dirname(schemaDest), { recursive: true });
   fs.copySync(schemaSrc, schemaDest);
   fs.copyFileSync(clientSrc, destination);
+  fs.copyFileSync(indexSrc, indexDest);
+  fs.copyFileSync(databaseSrc, databaseDest);
+
   fs.writeJSONSync(packageJsonPath, packageJsonContent, {
     spaces: 2,
   });

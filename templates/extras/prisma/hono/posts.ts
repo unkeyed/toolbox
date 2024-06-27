@@ -1,10 +1,8 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
-import { createClient } from "@libsql/client";
-import { PrismaLibSQL } from "@prisma/adapter-libsql";
-import { PrismaClient } from "@prisma/client";
 import { unkey, type UnkeyContext } from "@unkey/hono";
 
-import type { Cache } from "../../cache";
+import { connectDatabse } from "../database";
+import type { Cache } from "../lib/cache";
 import {
   createPost,
   deletePost,
@@ -39,13 +37,7 @@ posts.openapi(getPosts, async (c) => {
       401
     );
   }
-  const libsql = createClient({
-    url: c.env.TURSO_DATABASE_URL,
-    authToken: c.env.TURSO_AUTH_TOKEN,
-  });
-
-  const adapter = new PrismaLibSQL(libsql);
-  const prisma = new PrismaClient({ adapter });
+  const prisma = connectDatabse(c);
 
   const results = await prisma.post.findMany({
     select: {
@@ -86,13 +78,7 @@ posts.openapi(createPost, async (c) => {
       400
     );
   }
-  const libsql = createClient({
-    url: c.env.TURSO_DATABASE_URL,
-    authToken: c.env.TURSO_AUTH_TOKEN,
-  });
-
-  const adapter = new PrismaLibSQL(libsql);
-  const prisma = new PrismaClient({ adapter });
+  const prisma = connectDatabse(c);
   const results = await prisma.post.create({
     data: {
       title,
@@ -122,12 +108,7 @@ posts.openapi(getPost, async (c) => {
       401
     );
   }
-  const libsql = createClient({
-    url: c.env.TURSO_DATABASE_URL,
-    authToken: c.env.TURSO_AUTH_TOKEN,
-  });
-  const adapter = new PrismaLibSQL(libsql);
-  const prisma = new PrismaClient({ adapter });
+  const prisma = connectDatabse(c);
   const id = c.req.param("id");
   const post = await cache.post.swr(id, async () => {
     const results = await prisma.post.findUnique({
@@ -168,12 +149,7 @@ posts.openapi(updatePost, async (c) => {
   }
   const postId = Number.parseInt(c.req.param("id"));
   const { title, post } = await c.req.json();
-  const libsql = createClient({
-    url: c.env.TURSO_DATABASE_URL,
-    authToken: c.env.TURSO_AUTH_TOKEN,
-  });
-  const adapter = new PrismaLibSQL(libsql);
-  const prisma = new PrismaClient({ adapter });
+  const prisma = connectDatabse(c);
   const results = await prisma.post.update({
     where: {
       id: postId,
@@ -215,12 +191,7 @@ posts.openapi(deletePost, async (c) => {
     );
   }
   const postId = Number.parseInt(c.req.param("id"));
-  const libsql = createClient({
-    url: c.env.TURSO_DATABASE_URL,
-    authToken: c.env.TURSO_AUTH_TOKEN,
-  });
-  const adapter = new PrismaLibSQL(libsql);
-  const prisma = new PrismaClient({ adapter });
+  const prisma = connectDatabse(c);
   const results = await prisma.post.delete({
     where: {
       id: postId,
