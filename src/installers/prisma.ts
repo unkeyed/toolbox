@@ -85,6 +85,9 @@ export const prismaInstaller: Installer = ({
   // add postinstall and push script to package.json
   const packageJsonPath = path.join(projectDir, "apps/api/package.json");
 
+  const databaseSrc = path.join(extrasDir, "prisma/database.ts");
+  const databaseDest = path.join(projectDir, "apps/api/src/database.ts");
+  fs.copyFileSync(databaseSrc, databaseDest);
   const packageJsonContent = fs.readJSONSync(packageJsonPath) as PackageJson;
   packageJsonContent.scripts = {
     ...packageJsonContent.scripts,

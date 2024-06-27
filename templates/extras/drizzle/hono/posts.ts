@@ -1,10 +1,10 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
-import { createClient } from "@libsql/client";
 import { unkey, type UnkeyContext } from "@unkey/hono";
 import { eq } from "drizzle-orm";
 
-import type { Cache } from "../../cache";
-import { posts as postsTable } from "../db/schema";
+import { connectDatabse } from "../database";
+import { posts as postsTable } from "../db/turso";
+import { Cache } from "../lib/cache";
 import {
   createPost,
   deletePost,
@@ -12,7 +12,6 @@ import {
   getPosts,
   updatePost,
 } from "../schema/posts";
-import { connectDatabse } from "../database";
 
 type Bindings = {
   TURSO_DATABASE_URL: string;
@@ -42,9 +41,7 @@ posts.openapi(getPosts, async (c) => {
     );
   }
 
-  
-
-  const db = connectDatabse(c)
+  const db = connectDatabse(c);
   const results = await db.query.posts.findMany();
 
   if (!db) {
@@ -80,8 +77,8 @@ posts.openapi(createPost, async (c) => {
       400
     );
   }
- 
-  const db = connectDatabse(c)
+
+  const db = connectDatabse(c);
 
   const results = await db
     .insert(postsTable)
@@ -110,14 +107,14 @@ posts.openapi(getPost, async (c) => {
       401
     );
   }
-  
-  const db = connectDatabse(c)
+
+  const db = connectDatabse(c);
 
   const id = c.req.param("id");
   const cache = c.get("cache");
   const post = await cache.post.swr(id, async () => {
     return await db.query.posts.findFirst({
-      where: (table, { eq }) => eq(table.id, c.req.param("id")),
+      where: (table, { eq }) => eq(table.id, parseInt(id)),
     });
   });
   if (!post.val) {
@@ -167,7 +164,7 @@ posts.openapi(updatePost, async (c) => {
   }
   const postId = Number.parseInt(c.req.param("id"));
   const { title, post } = await c.req.json();
-  const db = connectDatabse(c)
+  const db = connectDatabse(c);
 
   const results = await db
     .update(postsTable)
@@ -204,9 +201,9 @@ posts.openapi(deletePost, async (c) => {
       401
     );
   }
-  const postId = Number.parseInt(c.req.param("id"));
+  const postId = parseInt(c.req.param("id"));
 
-  const db = connectDatabse(c)
+  const db = connectDatabse(c);
 
   const results = await db
     .delete(postsTable)
