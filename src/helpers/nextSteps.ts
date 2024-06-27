@@ -24,7 +24,7 @@ export const nextSteps = async ({
 
   if (packages?.prisma.inUse) {
     console.info(
-      `npx turso db shell YOUR_DATABASE_NAME < ./prisma/migrations/20240626173453_init/migration.sql`
+      `  npx turso db shell YOUR_DATABASE_NAME < ./prisma/migrations/20240626173453_init/migration.sql`
     );
   }
 
