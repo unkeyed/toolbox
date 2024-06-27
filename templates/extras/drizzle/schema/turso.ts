@@ -1,6 +1,6 @@
 import { index, int, sqliteTableCreator, text } from "drizzle-orm/sqlite-core";
 
-export const createTable = sqliteTableCreator((name) => `${name}`);
+const createTable = sqliteTableCreator((name) => `${name}`);
 
 export const posts = createTable(
   "post",

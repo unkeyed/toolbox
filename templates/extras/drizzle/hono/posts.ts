@@ -2,7 +2,6 @@ import { OpenAPIHono } from "@hono/zod-openapi";
 import { createClient } from "@libsql/client";
 import { unkey, type UnkeyContext } from "@unkey/hono";
 import { eq } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/libsql";
 
 import type { Cache } from "../../cache";
 import { posts as postsTable } from "../db/schema";
@@ -13,6 +12,7 @@ import {
   getPosts,
   updatePost,
 } from "../schema/posts";
+import { connectDatabse } from "../database";
 
 type Bindings = {
   TURSO_DATABASE_URL: string;
@@ -42,13 +42,10 @@ posts.openapi(getPosts, async (c) => {
     );
   }
 
-  const turso = createClient({
-    url: c.env.TURSO_DATABASE_URL!,
-    authToken: c.env.TURSO_AUTH_TOKEN,
-  });
+  
 
-  const db = drizzle(turso);
-  const results = await db.select().from(postsTable).execute();
+  const db = connectDatabse(c)
+  const results = await db.query.posts.findMany();
 
   if (!db) {
     return c.json(
@@ -83,12 +80,9 @@ posts.openapi(createPost, async (c) => {
       400
     );
   }
-  const turso = createClient({
-    url: c.env.TURSO_DATABASE_URL!,
-    authToken: c.env.TURSO_AUTH_TOKEN,
-  });
+ 
+  const db = connectDatabse(c)
 
-  const db = drizzle(turso);
   const results = await db
     .insert(postsTable)
     .values({ title, post })
@@ -116,24 +110,15 @@ posts.openapi(getPost, async (c) => {
       401
     );
   }
-  const turso = createClient({
-    url: c.env.TURSO_DATABASE_URL!,
-    authToken: c.env.TURSO_AUTH_TOKEN,
-  });
-
-  const db = drizzle(turso);
+  
+  const db = connectDatabse(c)
 
   const id = c.req.param("id");
   const cache = c.get("cache");
-  const post = await cache?.post.swr(id, async () => {
-    const result = await db
-      .select()
-      .from(postsTable)
-      .where(eq(postsTable.id, Number.parseInt(c.req.param("id"))));
-    if (result.length === 0) {
-      return undefined;
-    }
-    return result[0];
+  const post = await cache.post.swr(id, async () => {
+    return await db.query.posts.findFirst({
+      where: (table, { eq }) => eq(table.id, c.req.param("id")),
+    });
   });
   if (!post.val) {
     return c.json(
@@ -182,12 +167,8 @@ posts.openapi(updatePost, async (c) => {
   }
   const postId = Number.parseInt(c.req.param("id"));
   const { title, post } = await c.req.json();
-  const turso = createClient({
-    url: c.env.TURSO_DATABASE_URL!,
-    authToken: c.env.TURSO_AUTH_TOKEN,
-  });
+  const db = connectDatabse(c)
 
-  const db = drizzle(turso);
   const results = await db
     .update(postsTable)
     .set({ title, post })
@@ -225,12 +206,8 @@ posts.openapi(deletePost, async (c) => {
   }
   const postId = Number.parseInt(c.req.param("id"));
 
-  const turso = createClient({
-    url: c.env.TURSO_DATABASE_URL!,
-    authToken: c.env.TURSO_AUTH_TOKEN,
-  });
+  const db = connectDatabse(c)
 
-  const db = drizzle(turso);
   const results = await db
     .delete(postsTable)
     .where(eq(postsTable.id, postId))
