@@ -4,6 +4,7 @@ import { unkey, type UnkeyContext } from "@unkey/hono";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/libsql";
 
+import type { Cache } from "../../cache";
 import { posts as postsTable } from "../db/schema";
 import {
   createPost,
@@ -20,7 +21,7 @@ type Bindings = {
 };
 
 const posts = new OpenAPIHono<{
-  Variables: { unkey: UnkeyContext };
+  Variables: { unkey: UnkeyContext; cache: Cache };
   Bindings: Bindings;
 }>();
 

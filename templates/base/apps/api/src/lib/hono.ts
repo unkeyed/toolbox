@@ -1,11 +1,10 @@
 import { OpenAPIHono, z } from "@hono/zod-openapi";
-import { Cache } from "@unkey/cache";
 import type { UnkeyContext } from "@unkey/hono";
 import type { Ratelimit } from "@unkey/ratelimit";
 import type { Context as GenericContext, MiddlewareHandler } from "hono";
 import type { ZodError } from "zod";
 
-import type { CacheNamespaces } from "./cache";
+import type { Cache } from "./cache";
 
 export type HonoEnv = {
   Bindings: {
@@ -13,7 +12,7 @@ export type HonoEnv = {
     UNKEY_API_ID: string;
   };
   Variables: {
-    cache: Cache<CacheNamespaces>;
+    cache: Cache
     unkey: UnkeyContext;
     ratelimit: Ratelimit;
   };
