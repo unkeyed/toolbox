@@ -80,6 +80,7 @@ export const runCli = async (): Promise<CliResults> => {
             options: [
               { value: "prisma", label: "Prisma" },
               { value: "drizzle", label: "Drizzle" },
+              { value: "d1", label: "D1" },
             ],
             initialValue: "prisma",
           });
@@ -88,7 +89,7 @@ export const runCli = async (): Promise<CliResults> => {
           if (results.database === "none") return;
           return p.select({
             message: "What database provider would you like to use?",
-            options: [{ value: "turso", label: "Turso" }],
+            options: [{ value: "turso", label: "Turso" }, { value: "d1", label: "D1" }],
             initialValue: "sqlite",
           });
         },

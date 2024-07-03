@@ -32,7 +32,7 @@ export const drizzleInstaller: Installer = ({
     dependencies: [
       "drizzle-orm",
       (
-        {
+        ({
           turso: "@libsql/client",
           sqlite: "@libsql/client",
         } as const
@@ -60,12 +60,17 @@ export const drizzleInstaller: Installer = ({
     `,\n "packageManager":  "${turboManager}" \n }`
   );
 
-  const extrasDir = path.join(PKG_ROOT, "templates/extras");
-  const configName =
+
+  const configName = databaseProvider === "d1"
+    ? "drizzle-d1-config.ts"
+    : databaseProvider === "turso"
     databaseProvider === "turso"
       ? "drizzle-turso-config.ts"
       : "drizzle-config.ts";
   const configFile = path.join(extrasDir, `/drizzle/config/${configName}`);
+  const databaseSrc = databaseProvider === "d1"
+    ? path.join(extrasDir, "d1/drizzle/database.ts")
+    : path.join(extrasDir, "drizzle/database.ts");
   const configDest = path.join(projectDir, "apps/api/drizzle.config.ts");
   const schemaName = databaseProvider === "turso" ? "turso.ts" : `base.ts`;
   const schemaSrc = path.join(extrasDir, "drizzle/db/", schemaName);
@@ -105,6 +110,9 @@ export const drizzleInstaller: Installer = ({
   if (databaseProvider === "turso") {
     fs.appendFileSync(envPath, `TURSO_DATABASE_URL="YOUR_DATABASE_URL_HERE"\n`);
     fs.appendFileSync(envPath, `TURSO_AUTH_TOKEN="YOUR_AUTH_TOKEN"\n`);
+  } else if (databaseProvider === "d1") {
+    fs.appendFileSync(envPath, `D1_DATABASE_URL="YOUR_D1_DATABASE_URL"\n`);
+    fs.appendFileSync(envPath, `D1_AUTH_TOKEN="YOUR_D1_AUTH_TOKEN"\n`);
   } else {
     fs.appendFileSync(envPath, `DATABASE_URL="file:./dev.db"`);
   }

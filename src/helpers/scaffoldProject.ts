@@ -79,6 +79,19 @@ export const scaffoldProject = async ({
   spinner.start();
 
   fs.copySync(srcDir, projectDir);
+
+  if (databaseProvider === "d1") {
+    const d1Dir = path.join(PKG_ROOT, "templates/extras/d1");
+    if (packages.prisma.inUse) {
+      fs.copySync(path.join(d1Dir, "prisma/database.ts"), path.join(projectDir, "apps/api/src/database.ts"));
+      fs.copySync(path.join(d1Dir, "prisma/schema.prisma"), path.join(projectDir, "apps/api/prisma/schema.prisma"));
+    }
+    if (packages.drizzle.inUse) {
+      fs.copySync(path.join(d1Dir, "drizzle/database.ts"), path.join(projectDir, "apps/api/src/database.ts"));
+      fs.copySync(path.join(d1Dir, "drizzle/schema.ts"), path.join(projectDir, "apps/api/src/db/schema.ts"));
+    }
+  }
+
   fs.renameSync(
     path.join(projectDir, "apps/api/_gitignore"),
     path.join(projectDir, "apps/api/.gitignore")
