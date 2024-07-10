@@ -9,7 +9,7 @@ import { Root, API, APIInfo, APIExample, Responses, Response, ResponseTypes, Exa
 
 <API>
 
-<APIInfo method={"GET"} route={"/keys/v1/create/"}>
+<APIInfo method={"GET"} route={"/v1/keys/create/"}>
 
 | Status code | Description |
 | ----------- | ----------- |
@@ -31,7 +31,7 @@ import { Root, API, APIInfo, APIExample, Responses, Response, ResponseTypes, Exa
 <Request value={"cURL"}>
 
 ```bash
-curl -X GET "https://example.com/keys/v1/create/"
+curl -X GET "https://example.com/v1/keys/create/"
 ```
 
 </Request>
@@ -39,7 +39,7 @@ curl -X GET "https://example.com/keys/v1/create/"
 <Request value={"JavaScript"}>
 
 ```js
-fetch("https://example.com/keys/v1/create/", {
+fetch("https://example.com/v1/keys/create/", {
   method: "GET"
 });
 ```
@@ -304,7 +304,7 @@ export interface Response {
 
 <API>
 
-<APIInfo method={"GET"} route={"/posts/v1/all/"}>
+<APIInfo method={"GET"} route={"/v1/posts/all/"}>
 
 ### Header Parameters
 
@@ -334,7 +334,7 @@ export interface Response {
 <Request value={"cURL"}>
 
 ```bash
-curl -X GET "https://example.com/posts/v1/all/" \
+curl -X GET "https://example.com/v1/posts/all/" \
   -H "authorization: Bearer UNKEY_API_KEY"
 ```
 
@@ -343,7 +343,7 @@ curl -X GET "https://example.com/posts/v1/all/" \
 <Request value={"JavaScript"}>
 
 ```js
-fetch("https://example.com/posts/v1/all/", {
+fetch("https://example.com/v1/posts/all/", {
   method: "GET",
   headers: {
   "authorization": "Bearer UNKEY_API_KEY"
@@ -613,7 +613,7 @@ export interface Response {
 
 <API>
 
-<APIInfo method={"POST"} route={"/posts/v1/create/"}>
+<APIInfo method={"POST"} route={"/v1/posts/create/"}>
 
 ### Request Body (Optional)
 
@@ -653,7 +653,7 @@ export interface Response {
 <Request value={"cURL"}>
 
 ```bash
-curl -X POST "https://example.com/posts/v1/create/" \
+curl -X POST "https://example.com/v1/posts/create/" \
   -H "authorization: Bearer UNKEY_API_KEY" \
   -d '{
   "title": "string",
@@ -666,7 +666,7 @@ curl -X POST "https://example.com/posts/v1/create/" \
 <Request value={"JavaScript"}>
 
 ```js
-fetch("https://example.com/posts/v1/create/", {
+fetch("https://example.com/v1/posts/create/", {
   method: "POST",
   headers: {
   "authorization": "Bearer UNKEY_API_KEY"
@@ -922,7 +922,7 @@ export interface Response {
 
 <API>
 
-<APIInfo method={"GET"} route={"/posts/v1/get/:id"}>
+<APIInfo method={"GET"} route={"/v1/posts/get/:id"}>
 
 ### Path Parameters
 
@@ -958,7 +958,7 @@ export interface Response {
 <Request value={"cURL"}>
 
 ```bash
-curl -X GET "https://example.com/posts/v1/get/:id" \
+curl -X GET "https://example.com/v1/posts/get/:id" \
   -H "authorization: Bearer UNKEY_API_KEY"
 ```
 
@@ -967,7 +967,7 @@ curl -X GET "https://example.com/posts/v1/get/:id" \
 <Request value={"JavaScript"}>
 
 ```js
-fetch("https://example.com/posts/v1/get/:id", {
+fetch("https://example.com/v1/posts/get/:id", {
   method: "GET",
   headers: {
   "authorization": "Bearer UNKEY_API_KEY"
@@ -1231,7 +1231,7 @@ export interface Response {
 
 <API>
 
-<APIInfo method={"PATCH"} route={"/posts/v1/update/:id"}>
+<APIInfo method={"PATCH"} route={"/v1/posts/update/:id"}>
 
 ### Request Body (Optional)
 
@@ -1277,7 +1277,7 @@ export interface Response {
 <Request value={"cURL"}>
 
 ```bash
-curl -X PATCH "https://example.com/posts/v1/update/:id" \
+curl -X PATCH "https://example.com/v1/posts/update/:id" \
   -H "authorization: Bearer UNKEY_API_KEY" \
   -d '{
   "title": "string",
@@ -1290,7 +1290,7 @@ curl -X PATCH "https://example.com/posts/v1/update/:id" \
 <Request value={"JavaScript"}>
 
 ```js
-fetch("https://example.com/posts/v1/update/:id", {
+fetch("https://example.com/v1/posts/update/:id", {
   method: "PATCH",
   headers: {
   "authorization": "Bearer UNKEY_API_KEY"
@@ -1554,7 +1554,7 @@ export interface Response {
 
 <API>
 
-<APIInfo method={"DELETE"} route={"/posts/v1/delete/:id"}>
+<APIInfo method={"DELETE"} route={"/v1/posts/delete/:id"}>
 
 ### Path Parameters
 
@@ -1590,7 +1590,7 @@ export interface Response {
 <Request value={"cURL"}>
 
 ```bash
-curl -X DELETE "https://example.com/posts/v1/delete/:id" \
+curl -X DELETE "https://example.com/v1/posts/delete/:id" \
   -H "authorization: Bearer UNKEY_API_KEY"
 ```
 
@@ -1599,7 +1599,7 @@ curl -X DELETE "https://example.com/posts/v1/delete/:id" \
 <Request value={"JavaScript"}>
 
 ```js
-fetch("https://example.com/posts/v1/delete/:id", {
+fetch("https://example.com/v1/posts/delete/:id", {
   method: "DELETE",
   headers: {
   "authorization": "Bearer UNKEY_API_KEY"
