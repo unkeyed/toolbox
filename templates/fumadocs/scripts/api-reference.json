@@ -16,7 +16,7 @@
     "parameters": {}
   },
   "paths": {
-    "/keys/create/": {
+    "/v1/keys/create/": {
       "get": {
         "responses": {
           "200": {
@@ -178,7 +178,7 @@
         }
       }
     },
-    "/posts/all/": {
+    "/v1/posts/all/": {
       "get": {
         "parameters": [
           {
@@ -359,7 +359,7 @@
         }
       }
     },
-    "/posts/create/": {
+    "/v1/posts/create/": {
       "post": {
         "parameters": [
           {
@@ -538,14 +538,15 @@
         }
       }
     },
-    "/posts/get/:id": {
+    "/v1/posts/get/:id": {
       "get": {
         "parameters": [
           {
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "nullable": true
             },
-            "required": true,
+            "required": false,
             "name": "id",
             "in": "path"
           },
@@ -718,14 +719,15 @@
         }
       }
     },
-    "/posts/update/:id": {
+    "/v1/posts/update/:id": {
       "patch": {
         "parameters": [
           {
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "nullable": true
             },
-            "required": true,
+            "required": false,
             "name": "id",
             "in": "path"
           },
@@ -916,7 +918,7 @@
         }
       }
     },
-    "/posts/delete/:id": {
+    "/v1/posts/delete/:id": {
       "delete": {
         "parameters": [
           {

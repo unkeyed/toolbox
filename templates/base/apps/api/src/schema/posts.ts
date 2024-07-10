@@ -21,7 +21,7 @@ const HeadersSchema = z.object({
 
 export const getPosts = createRoute({
   method: "get",
-  path: "/all/",
+  path: "all/",
   request: {
     headers: HeadersSchema,
   },
@@ -45,7 +45,7 @@ const createPostRequestSchema = z.object({
 
 export const createPost = createRoute({
   method: "post",
-  path: "/create/",
+  path: "create/",
   request: {
     headers: HeadersSchema,
     body: {

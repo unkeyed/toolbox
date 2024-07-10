@@ -5,10 +5,10 @@ import { keys } from "./routes/keys";
 import { posts } from "./routes/posts";
 
 const app = newApp();
-
+const version = "v1";
 app.use(initCache());
 app.use(initRatelimiter());
 
-app.route("/keys/", keys);
-app.route("/posts/", posts);
+app.route(`${version}/keys/`, keys);
+app.route(`${version}/posts/`, posts);
 export default app;
