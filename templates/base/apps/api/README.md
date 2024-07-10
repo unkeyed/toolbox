@@ -45,16 +45,16 @@ You can then run `npm run dev`
 
 Then you will have access to the following routes:
 
-`/keys/create` - To create an API key to use with the other endpoints.
+`/keys/v1/create` - To create an API key to use with the other endpoints.
 
 Then the post routes:
 
 ```
-/posts/create
-/posts/getAll
-/posts/get/:id
-/posts/update/:id
-/posts/delete/:id
+/posts/v1/create
+/posts/v1/getAll
+/posts/v1/get/:id
+/posts/v1/update/:id
+/posts/v1/delete/:id
 ```
 
 You also have access to the open-api spec found at http://localhost:8787/open-api

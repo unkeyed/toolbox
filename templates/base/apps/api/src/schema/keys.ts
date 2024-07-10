@@ -4,7 +4,7 @@ import { openApiErrorResponses } from "./errors";
 
 export const createKey = createRoute({
   method: "get",
-  path: "/create/",
+  path: "/v1/create/",
   responses: {
     200: {
       content: {

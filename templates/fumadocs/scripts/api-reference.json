@@ -178,7 +178,7 @@
         }
       }
     },
-    "/posts/all/": {
+    "/posts/v1/all/": {
       "get": {
         "parameters": [
           {
@@ -359,7 +359,7 @@
         }
       }
     },
-    "/posts/create/": {
+    "/posts/v1/create/": {
       "post": {
         "parameters": [
           {
@@ -538,7 +538,7 @@
         }
       }
     },
-    "/posts/get/:id": {
+    "/posts/v1/get/:id": {
       "get": {
         "parameters": [
           {
@@ -718,7 +718,7 @@
         }
       }
     },
-    "/posts/update/:id": {
+    "/posts/v1/update/:id": {
       "patch": {
         "parameters": [
           {
@@ -916,7 +916,7 @@
         }
       }
     },
-    "/posts/delete/:id": {
+    "/posts/v1/delete/:id": {
       "delete": {
         "parameters": [
           {

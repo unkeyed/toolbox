@@ -21,7 +21,7 @@ const HeadersSchema = z.object({
 
 export const getPosts = createRoute({
   method: "get",
-  path: "/all/",
+  path: "/v1/all/",
   request: {
     headers: HeadersSchema,
   },
@@ -45,7 +45,7 @@ const createPostRequestSchema = z.object({
 
 export const createPost = createRoute({
   method: "post",
-  path: "/create/",
+  path: "/v1/create/",
   request: {
     headers: HeadersSchema,
     body: {
@@ -75,7 +75,7 @@ const getPostRequestSchema = z.object({
 
 export const getPost = createRoute({
   method: "get",
-  path: "get/:id",
+  path: "/v1/get/:id",
 
   request: {
     headers: HeadersSchema,
@@ -101,7 +101,7 @@ const updatePostRequestSchema = z.object({
 
 export const updatePost = createRoute({
   method: "patch",
-  path: "update/:id",
+  path: "/v1/update/:id",
   request: {
     headers: HeadersSchema,
     params: z.object({
@@ -134,7 +134,7 @@ const deletePostRequestSchema = z.object({
 
 export const deletePost = createRoute({
   method: "delete",
-  path: "delete/:id",
+  path: "/v1/delete/:id",
   request: {
     headers: HeadersSchema,
     params: deletePostRequestSchema,
