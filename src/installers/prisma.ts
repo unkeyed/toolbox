@@ -62,6 +62,15 @@ export const prismaInstaller: Installer = ({
   const schemaSrc = path.join(
     extrasDir,
     "prisma/schema",
+    `${databaseProvider === "d1" ? "d1" : "base"}${
+      databaseProvider === "turso" ? "-turso" : ""
+    }.prisma`
+  );
+  const databaseSrc = path.join(
+    extrasDir,
+    `d1/prisma/database.ts`
+  );
+  const schemaSrc = path.join(
     `${"base"}${databaseProvider === "turso" ? "-turso" : ""}.prisma`
   );
   let schemaText = fs.readFileSync(schemaSrc, "utf-8");
@@ -83,8 +92,13 @@ export const prismaInstaller: Installer = ({
   const destination = path.join(projectDir, "apps/api/src/routes/posts.ts");
   fs.copyFileSync(clientSrc, destination);
   // add postinstall and push script to package.json
-  const packageJsonPath = path.join(projectDir, "apps/api/package.json");
+  if (databaseProvider === "d1") {
+    fs.copyFileSync(databaseSrc, databaseDest);
+  } else {
+    fs.copyFileSync(databaseSrc, databaseDest);
+  }
 
+  const packageJsonPath = path.join(projectDir, "apps/api/package.json");
   const databaseSrc = path.join(extrasDir, "prisma/database.ts");
   const databaseDest = path.join(projectDir, "apps/api/src/database.ts");
   fs.copyFileSync(databaseSrc, databaseDest);
@@ -111,6 +125,9 @@ export const prismaInstaller: Installer = ({
   if (databaseProvider === "turso") {
     fs.appendFileSync(envPath, `TURSO_DATABASE_URL="YOUR_DATABASE_URL_HERE"\n`);
     fs.appendFileSync(envPath, `TURSO_AUTH_TOKEN="YOUR_AUTH_TOKEN"\n`);
+  } else if (databaseProvider === "d1") {
+    fs.appendFileSync(envPath, `D1_DATABASE_URL="YOUR_D1_DATABASE_URL"\n`);
+    fs.appendFileSync(envPath, `D1_AUTH_TOKEN="YOUR_D1_AUTH_TOKEN"\n`);
   } else {
     fs.appendFileSync(envPath, `DATABASE_URL="file:./dev.db"`);
   }

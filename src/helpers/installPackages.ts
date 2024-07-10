@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import ora from "ora";
 
+import { addPackageDependency } from "~/utils/addPackageDependency.js";
 import {
   type InstallerOptions,
   type PkgInstallerMap,
@@ -26,6 +27,14 @@ export const installPackages = (options: InstallPackagesOptions) => {
         );
       }
     }
+  }
+
+  if (options.databaseProvider === 'd1') {
+    addPackageDependency({
+      projectDir: options.projectDir,
+      dependencies: ['@cloudflare/d1', '@cloudflare/workers-types'],
+      devMode: true,
+    });
   }
 
   console.info("");
