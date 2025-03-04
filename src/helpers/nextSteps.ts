@@ -45,7 +45,7 @@ export const nextSteps = async ({
         `  npx turso db shell YOUR_DATABASE_NAME < ./prisma/migrations/20240626173453_init/migration.sql`
       );
     } else if (databaseProvider === "postgres") {
-      console.info(`npx prisma db push`);
+      console.info(`  npm run db:push`);
     }
   }
 
