@@ -19,9 +19,7 @@ export const nextSteps = async ({
   // Show different environment variables based on database provider
   switch (databaseProvider) {
     case "postgres":
-      console.info(
-        `    DATABASE_URL="POSTGRES_URL/dbname"`
-      );
+      console.info(`    DATABASE_URL="POSTGRES_URL/dbname"`);
       break;
     case "turso":
       console.info(`    TURSO_DATABASE_URL="YOUR_DATABASE_URL"`);

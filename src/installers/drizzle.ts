@@ -49,7 +49,6 @@ export const drizzleInstaller: Installer = ({
     ],
     devMode: false,
   });
-  
 
   const pkgManager = getUserPkgManager();
   let turboManager = "";
