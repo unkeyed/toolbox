@@ -117,10 +117,12 @@ export const prismaInstaller: Installer = ({
     spaces: 2,
   });
 
+  if(databaseProvider !== "postgres"){
   const migrations = path.join(projectDir, "apps/api/prisma/migrations");
   fs.mkdirSync(migrations, { recursive: true });
   const migrationSrc = path.join(extrasDir, "prisma/migrations");
   fs.copySync(migrationSrc, migrations);
+  }
   const envPath = path.join(projectDir, "apps/api/.dev.vars");
   switch (databaseProvider) {
     case "turso":
