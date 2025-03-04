@@ -22,6 +22,13 @@ export const drizzleInstaller: Installer = ({
     dependencies: devPackages,
     devMode: true,
   });
+  if (databaseProvider === "postgres") {
+    addPackageDependency({
+      projectDir,
+      dependencies: ["@types/pg"],
+      devMode: true,
+    });
+  }
 
   addPackageDependency({
     projectDir,
