@@ -23,7 +23,11 @@
     "pub:next": "pnpm build && npm publish --tag next",
     "pub:release": "pnpm build && npm publish"
   },
-  "keywords": ["API toolbox", "API generator", "Unkey"],
+  "keywords": [
+    "API toolbox",
+    "API generator",
+    "Unkey"
+  ],
   "author": "James Perkins",
   "license": "MIT",
   "devDependencies": {
