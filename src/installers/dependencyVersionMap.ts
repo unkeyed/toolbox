@@ -14,5 +14,8 @@ export const dependencyVersionMap = {
   // These are dependencies that are shared between Prisma and Drizzle
   "dotenv-cli": "^7.4.2",
   "@libsql/client": "^0.6.2",
+  // PostgreSQL dependencies
+  pg: "^8.11.3",
+  "@types/pg": "^8.10.9",
 } as const;
 export type AvailableDependencies = keyof typeof dependencyVersionMap;
